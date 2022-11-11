@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotlight Effect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      height:100vh;
+    }
+
+    section {
+      height: 100vh;
+      padding: 3rem;
+      position: relative;
+      background-color: black;
+      color: white;
+    }
+
+    h1 {
+      font-size: 5rem;
+    }
+
+    span.test {
+      height: 200px;
+      width: 200px;
+      position: absolute;
+      border-radius: 50%;
+      top: calc(var(--y) - 75px);
+      left: calc(var(--x) - 75px);
+      backdrop-filter: invert(100%);
+      transition: all 100ms;
+    }
+
+    .is-open {
+      height: 2000px !important;
+      width: 2000px !important;
+      left: -50vw !important;
+      top: -50vh !important;
+      transition: all 2s
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>It's smarter that way</h1>
+    <p> Why would you dumbly duplicate content when you can use a filter</p>
+    <p>(just press the 't' key to toggle the view to full white)</p>
+    <span class="test"></span>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const test = document.querySelector('.test')
+
+    window.addEventListener('mousemove', (e) => {
+      const {clientX, clientY} = e;
+      const x = Math.round((clientX / window.innerWidth) * 100)
+      const y = Math.round((clientY / window.innerHeight) * 100)
+
+      gsap.to(test, {
+        '--x': `${x}%`,
+        '--y': `${y}%`,
+        duration: 0.3,
+        ease: 'sine.out'
+      })
+    })
+
+    document.addEventListener('keydown', (e) => {
+      const { key } = e;
+      key === 't' 
+        ? test.classList.toggle('is-open')
+        : console.log('veuillez taper t')
+    })
+  </script>
+</body>
+</html>
