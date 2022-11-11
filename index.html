@@ -12,6 +12,7 @@
     
     body {
       height:100vh;
+      overflow: hidden;
     }
 
     section {
@@ -31,24 +32,18 @@
       width: 200px;
       position: absolute;
       border-radius: 50%;
-      top: calc(var(--y));
-      left: calc(var(--x));
+      top: calc(var(--y) - 75px);
+      left: calc(var(--x) - 75px);
       backdrop-filter: invert(100%);
-      transition: all 100ms;
+      transition: top 300ms, left 300ms, height 1000ms, width 1000ms; 
     }
 
     .is-open {
-      height: 100vh !important;
-      width: 100vw !important;
-      /* top: -50vh !important;
-      left: -50vw !important; */
-      top:0 !important;
-      left: 0 !important;
-      transition: all 2000ms;
-      border-radius: 0 !important;
-    }
-    .btn-hover {
-      z-index:9000; 
+      height: 300vh !important;
+      width: 300vw !important;
+      top: calc(var(--y) - 75%) !important;
+      left: calc(var(--x) - 75%) !important;
+      transition: height 1000ms, width 1000ms, top 300ms, left 300ms ;
     }
   </style>
 </head>
@@ -57,12 +52,10 @@
     <h1>Spotlight effect with GSAP</h1>
     <p>just press the 't' key to toggle the view to full white</p>
     <span class="test"></span>
-    <button class="btn-hover">Expand</button>
   </section>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     const test = document.querySelector('.test')
-    const btn = document.querySelector('.btn-hover')
 
     window.addEventListener('mousemove', (e) => {
       const {clientX, clientY} = e;
@@ -75,11 +68,6 @@
         duration: 0.3,
         ease: 'sine.out'
       })
-    })
-
-    btn.addEventListener('click', (e) => {
-      console.log('click')
-      test.classList.toggle('is-open')
     })
 
     document.addEventListener('keydown', (e) => {
